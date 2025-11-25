@@ -65,9 +65,9 @@ h1{
   background-color: #3f3757;
 }
 
-#tran :has(.button:hover).img-profile {
+#tran:has(.button:hover) .img-profile {
 
-  animation: animate 5s forwards;
+  animation: animate ;
 
 }
 
@@ -76,7 +76,7 @@ h1{
       transform: scale(1);
     }
     to{
-      transform: scale(1.3);
+      transform: scale(-4);
     }
 }
 
