@@ -8,51 +8,49 @@ body {
   font-family: Arial, sans-serif;
   background-color: #efebfa;
   color: #201f20;
-  line-height: 1.6;
   padding: 20px;
-}
-
-h1 {
-  text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin-bottom: 20px;
-  color: #2f0f55;
 }
 
 .profile-card {
   background-color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 700px;
   width: 90%;
   margin: 20px auto;
   padding: 20px 40px;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .img-profile {
   width: 400px;
   height: 400px;
   border-radius: 50%;
-  margin: 0 auto 15px;
   background-color: #a296b1;
-  overflow: hidden;
-  object-fit: cover;
+  margin: 0 auto;
+  transition: transform 0.4s ease;
 }
 
-/* Button box */
+#shrinkToggle {
+  display: none;
+}
+
+#shrinkToggle:checked ~ .img-profile {
+  transform: scale(0.4) translateY(-180px);
+}
+
+/* Button */
 .click {
-  display: block;
-  margin: 0 auto;
   background-color: #7a7481;
-  color: #ffffff;
+  color: white;
   padding: 10px 20px;
   border-radius: 20px;
-  text-decoration: none;
-  font-size: 16px;
-  margin-top: 15px;
   width: 250px;
   height: 50px;
+  display: block;
+  margin: 20px auto 0;
+  text-align: center;
   cursor: pointer;
 }
 
@@ -60,28 +58,55 @@ h1 {
   background-color: #3f3757;
 }
 
-/* Animation triggers when .click is hovered */
-#tran:has(.click:hover) .img-profile {
-  animation: animate 0.4s forwards;
+/* --- ICON ANIMATION --- */
+.social-icons {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  z-index: 3;
 }
 
-/* When NOT hovered, keep the final animation frame */
-#tran:not(:has(.click:hover)) .img-profile {
-  transform: scale(0.4) translateY(-180px);
+.social-icons li {
+  list-style: none;
 }
 
-@keyframes animate {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(0.4) translateY(-180px);
-  }
+.social-icons li a {
+  width: 70px;
+  height: 70px;
+  background: white;
+  text-align: center;
+  line-height: 50px;
+  margin: 0 8px;
+  border-radius: 50%;
+  font-size: 22px;
+  color: #333;
+  transition: 0.4s;
+  opacity: 0;
+  transform: translateY(150px);
 }
 
+/* When image shrinks, reveal icons */
+#shrinkToggle:checked ~ .social-icons li a {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered reveal */
+#shrinkToggle:checked ~ .social-icons li:nth-child(1) a { transition-delay: 0.1s; }
+#shrinkToggle:checked ~ .social-icons li:nth-child(2) a { transition-delay: 0.2s; }
+#shrinkToggle:checked ~ .social-icons li:nth-child(3) a { transition-delay: 0.3s; }
+
+
+
+.social-icons li a .fab {
+  transition: 0.8s;
+}
+
+.social-icons li a:hover .fab {
+  transform: rotateY(360deg);
+}
   /*
     from{
       transform: scale(1);
